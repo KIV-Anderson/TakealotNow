@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>New Product</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+<header>
+
+    <h1>New Product</h1>
+
+    <a href="/">
+        Back To Store
+    </a>
+
+</header>
+
+<form
+    method="POST"
+    enctype="multipart/form-data"
+>
+
+    <input
+        type="text"
+        name="name"
+        placeholder="Product Name"
+        required
+    >
+
+    <input
+        type="number"
+        step="0.01"
+        name="price"
+        placeholder="Price"
+        required
+    >
+
+    <textarea
+        name="description"
+        placeholder="Description"
+        required
+    ></textarea>
+
+    <select
+        name="category"
+        required
+    >
+
+        <option value="">
+            Select Category
+        </option>
+
+        <option>
+            Electronics
+        </option>
+
+        <option>
+            Clothing
+        </option>
+
+        <option>
+            Home
+        </option>
+
+        <option>
+            Beauty
+        </option>
+
+        <option>
+            Sports
+        </option>
+
+        <option>
+            Toys
+        </option>
+
+        <option>
+            Books
+        </option>
+
+        <option>
+            Other
+        </option>
+
+    </select>
+
+    <input
+        type="file"
+        name="image"
+        accept="image/*"
+        required
+    >
+
+    <button type="submit">
+        Save Product
+    </button>
+
+</form>
+
+</body>
+</html>

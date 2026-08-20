@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>South African Store</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <header>
+        <div>
+            <img src="/uploads/3.gif" alt="" class="profile-img">
+        </div>
+        <div class="search-area">
+            <div class="filter-box">
+                <form method="GET" action="/">
+                    <input type="text" name="search" placeholder="Search" value="{{ search }}">
+                    <select name="category">
+                        <option value="">
+                            All Categories
+                        </option>
+                        {% for category in categories %}
+                        <option value="{{ category }}" {% if selected_category==category %} selected {% endif %}>
+                            {{ category }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">
+                        Filter
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="header-links">
+
+            <a href="{{ url_for('catalog.index') }}"> Home </a>
+
+            <a href="{{ url_for('cart.cart') }}" id="cart-link"> Cart ({{ cart_count }}) </a>
+
+            {% if session.get("user_id") %}
+
+            <a href="#"> {{ session.get("username") }} </a>
+
+            <a href="{{ url_for('auth.logout') }}"> Logout </a>
+
+            {% else %}
+
+            <a href="{{ url_for('auth.login') }}"> Login </a>
+
+            <a href="{{ url_for('auth.register') }}"> Register </a>
+            {% endif %}
+            <a href="{{ url_for('catalog.add_product') }}" hidden="hidden"> Add Product </a>
+
+        </div>
+    </header>
+
+    <nav class="category-bar">
+
+        <a href="/"> All </a>
+
+        {% for category in categories %}
+
+        <a href="/?category={{ category }}"> {{ category }} </a>
+
+        {% endfor %}
+
+    </nav>
+
+    <div class="gallery-container">
+        <div class="products" id="productsGrid">
+            {% for product in products %}
+            <div class="card" onclick="openModal(this)" data-title="{{ product[1] }}"
+                data-description="{{ product[3] }}" data-image="/uploads/{{ product[5] }}">
+
+                <img src="/uploads/{{ product[5] }}" alt="{{ product[1] }}">
+
+                <h3>{{ product[1] }}</h3>
+
+                <p class="price"> R{{ product[2] }} </p>
+
+                <a href="#" id="{{product[0]}}" class="add-cart-btn"
+                    onclick="event.stopPropagation(); addToCart({{ product[0] }});"> Add To Cart </a>
+
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="gallery-dots" id="galleryDots"></div>
+        <div id="pageIndicator">1 / 1</div>
+    </div>
+
+
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()"> X </span>
+            <img id="modalImage">
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription"></p>
+        </div>
+    </div>
+
+    <script src="/static/js/index.js"> </script>
+    <div id="cart-toast" class="cart-toast"> ✓ Added to Cart </div>
+</body>
+
+</html>
+
+<script src="/static/js/itemmodal.js"></script>
